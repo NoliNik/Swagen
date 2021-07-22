@@ -103,6 +103,8 @@ extension Operation {
             return ".requestPlain"
         } else if body.count == 1, query.isEmpty {
             return ".requestJSONEncodable(\(body[0].name))"
+        } else if body.isEmpty, !query.isEmpty {
+            return ".requestParameters(parameters: \(urlParams), encoding: URLEncoding())"
         } else {
             return ".requestCompositeParameters(bodyParameters: \(bodyParams), bodyEncoding: JSONEncoding(), urlParameters: \(urlParams))"
         }
